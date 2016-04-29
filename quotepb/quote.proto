@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package quotepb;
+
+message Quotes {
+	repeated StockQuote StockQuotes = 1;
+}
+
+message StockQuote {
+	string name = 1;            
+	string symbol = 2;         
+	double last_price = 3;        
+	double change = 4;   
+	double change_percent = 5;    
+	string timestamp = 6;
+	double market_cap = 7;     
+	int64  volume = 8;   
+	double change_YTD = 9;        
+	double change_percent_YTD = 10; 
+	double high = 11;
+	double low = 12;       
+	double open = 13;         
+}
+
+message Request {
+	string symbol = 1;
+}
+
+message Response {
+	StockQuote quote = 1;
+}
+
+service Quoter {
+	rpc Quote (Request) returns (Response);
+	rpc QuoteStream (Request) returns (stream Response);
+}
